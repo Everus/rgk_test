@@ -28,6 +28,12 @@ $config = [
             // for the mailer to send real emails.
             'useFileTransport' => true,
         ],
+        'formatter' => [
+            'class' => 'yii\i18n\Formatter',
+            'dateFormat' => 'yyyy-mm-dd',
+            'datetimeFormat' => 'yyyy-mm-dd H:i:s',
+            'timeFormat' => 'H:i:s',
+        ],
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,

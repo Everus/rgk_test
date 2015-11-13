@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use \yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "books".
@@ -17,8 +18,23 @@ use Yii;
  *
  * @property Authors $author
  */
-class Books extends \yii\db\ActiveRecord
+class Books extends ActiveRecord
 {
+    public function beforeSave($insert)
+    {
+        if (parent::beforeSave($insert)) {
+            if($insert) {
+                $this->date_create = date('Y-m-d');
+            }
+            $this->date_update = date('Y-m-d');
+
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
     /**
      * @inheritdoc
      */
@@ -33,10 +49,10 @@ class Books extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'date_create', 'date_update', 'preview', 'date', 'author_id'], 'required'],
+            [['name', 'preview', 'date', 'author_id'], 'required'],
             [['name', 'preview'], 'string'],
-            [['date_create', 'date_update', 'date'], 'safe'],
-            [['author_id'], 'integer']
+            [['date'], 'date', 'format' => 'yyyy-mm-dd'],
+            [['author_id'], 'integer'],
         ];
     }
 
