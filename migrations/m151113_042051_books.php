@@ -21,6 +21,7 @@ class m151113_042051_books extends Migration
             'firstname' => Schema::TYPE_TEXT.' NOT NULL DEFAULT ""',
             'lastname' => Schema::TYPE_TEXT.' NOT NULL DEFAULT ""',
         ]);
+        $this->addForeignKey( 'authors', 'books', 'author_id', 'authors', 'id');
     }
 
     public function down()
