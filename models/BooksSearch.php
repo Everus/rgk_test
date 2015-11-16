@@ -12,14 +12,67 @@ use app\models\Books;
  */
 class BooksSearch extends Books
 {
+    private $dateFrom;
+    private $dateTo;
+
+    /**
+     * @return mixed
+     */
+    public function getDateFrom()
+    {
+        return $this->dateFrom;
+    }
+
+    /**
+     * @param mixed $dateFrom
+     * @return BooksSearch
+     */
+    public function setDateFrom($dateFrom)
+    {
+        $this->dateFrom = $dateFrom;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDateTo()
+    {
+        return $this->dateTo;
+    }
+
+    /**
+     * @param mixed $dateTo
+     * @return BooksSearch
+     */
+    public function setDateTo($dateTo)
+    {
+        $this->dateTo = $dateTo;
+        return $this;
+    }
+
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['id', 'author_id'], 'integer'],
-            [['name', 'date_create', 'date_update', 'preview', 'date'], 'safe'],
+            [['author_id'], 'integer'],
+            [['name'], 'safe'],
+            [['dateFrom', 'dateTo'], 'date', 'format' => 'yyyy-mm-dd']
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'name' => 'Название',
+            'dateFrom' => 'Дата выхода книги:',
+            'dateTo' => 'До:',
+            'author_id' => 'Автор',
         ];
     }
 
@@ -41,7 +94,8 @@ class BooksSearch extends Books
      */
     public function search($params)
     {
-        $query = Books::find();
+        $query = Books::find()
+            ->with('author');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -57,14 +111,12 @@ class BooksSearch extends Books
 
         $query->andFilterWhere([
             'id' => $this->id,
-            'date_create' => $this->date_create,
-            'date_update' => $this->date_update,
-            'date' => $this->date,
             'author_id' => $this->author_id,
         ]);
+        $query->andFilterWhere(['between', 'date', $this->dateFrom, $this->dateTo]);
 
         $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'preview', $this->preview]);
+            ;
 
         return $dataProvider;
     }

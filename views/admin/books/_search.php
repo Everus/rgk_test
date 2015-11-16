@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\helpers\ArrayHelper;
+use app\models\Authors;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\BooksSearch */
@@ -15,19 +17,16 @@ use yii\widgets\ActiveForm;
         'method' => 'get',
     ]); ?>
 
-    <?= $form->field($model, 'id') ?>
-
     <?= $form->field($model, 'name') ?>
 
-    <?= $form->field($model, 'date_create') ?>
+    <?= $form->field($model, 'dateFrom')->widget(\yii\jui\DatePicker::className(),['dateFormat' => 'yyyy-MM-dd']) ?>
 
-    <?= $form->field($model, 'date_update') ?>
+    <?= $form->field($model, 'dateTo')->widget(\yii\jui\DatePicker::className(),['dateFormat' => 'yyyy-MM-dd']) ?>
 
-    <?= $form->field($model, 'preview') ?>
+    <?= $form->field($model, 'author_id')->DropDownList(ArrayHelper::map(Authors::find()->all(), 'id', 'fullName'), ['prompt' => '']) ?>
 
     <?php // echo $form->field($model, 'date') ?>
 
-    <?php // echo $form->field($model, 'author_id') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
