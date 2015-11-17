@@ -21,7 +21,6 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::a('Create Books', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
-
     <?= GridView::widget([
         'dataProvider' => $searchModel->search(Yii::$app->getRequest()->getQueryParams()),
         //'filterModel' => $searchModel,
@@ -30,7 +29,14 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id',
             'name:ntext',
-            'preview:ntext',
+            [
+                'label' => 'preview',
+                'format' => 'raw',
+                'value' => function(Books $data)
+                {
+                    return Html::img($data->getPreviewThumbURL());
+                }
+            ],
             'author.fullName',
             'date',
             'date_create',
@@ -41,3 +47,4 @@ $this->params['breadcrumbs'][] = $this->title;
     ]); ?>
 
 </div>
+<?= $this->render('modal'); ?>

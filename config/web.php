@@ -1,7 +1,8 @@
 <?php
+use yii\imagine\Image;
 
 $params = require(__DIR__ . '/params.php');
-
+Image::$driver = Image::DRIVER_GD2;
 $config = [
     'id' => 'basic',
     'language' => 'ru-RU',

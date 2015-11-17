@@ -12,13 +12,15 @@ use app\models\Authors;
 
 <div class="books-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin([
+        'options' => ['enctype'=>'multipart/form-data']
+    ]); ?>
 
     <?= $form->field($model, 'name')->textInput() ?>
 
     <?= $form->field($model, 'author_id')->DropDownList(ArrayHelper::map(Authors::find()->all(), 'id', 'fullName')) ?>
 
-    <?= $form->field($model, 'preview')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'imageFile')->fileInput() ?>
 
     <?= $form->field($model, 'date')->widget(\yii\jui\DatePicker::className(),['dateFormat' => 'yyyy-MM-dd']) ?>
 

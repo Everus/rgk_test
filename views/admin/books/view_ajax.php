@@ -10,21 +10,12 @@ $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => 'Books', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="books-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
-
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <h4 class="modal-title" id="bookModalTitle"><?= Html::encode($this->title) ?></h4>
+</div>
+<div class="modal-body">
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
@@ -41,5 +32,4 @@ $this->params['breadcrumbs'][] = $this->title;
             'author.fullname',
         ],
     ]) ?>
-
 </div>

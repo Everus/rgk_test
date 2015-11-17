@@ -32,6 +32,7 @@ class BooksController extends Controller
      */
     public function actionIndex()
     {
+        Yii::$app->user->returnUrl = Yii::$app->request->absoluteUrl;
         $searchModel = new BooksSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -48,6 +49,11 @@ class BooksController extends Controller
      */
     public function actionView($id)
     {
+        if(Yii::$app->request->isAjax) {
+            return $this->renderAjax('view_ajax', [
+                'model' => $this->findModel($id),
+            ]);
+        }
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -82,7 +88,7 @@ class BooksController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->goBack();
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -100,7 +106,7 @@ class BooksController extends Controller
     {
         $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+        return $this->goBack();
     }
 
     /**

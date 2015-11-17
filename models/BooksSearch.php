@@ -72,9 +72,10 @@ class BooksSearch extends Books
             'name' => 'Название',
             'dateFrom' => 'Дата выхода книги:',
             'dateTo' => 'До:',
-            'author_id' => 'Автор',
+            'fullName' => 'Автор',
         ];
     }
+
 
     /**
      * @inheritdoc
@@ -95,10 +96,25 @@ class BooksSearch extends Books
     public function search($params)
     {
         $query = Books::find()
-            ->with('author');
+            ->Joinwith('author');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+        ]);
+
+        $dataProvider->setSort([
+            'attributes' => [
+                'id',
+                'name',
+                'date',
+                'date_create',
+                'author.fullName' => [
+                    'asc' => ['authors.firstname' => SORT_ASC, 'authors.lastname' => SORT_ASC],
+                    'desc' => ['authors.firstname' => SORT_DESC, 'authors.lastname' => SORT_DESC],
+                    'label' => 'Full Name',
+                    'default' => SORT_ASC
+                ]
+            ]
         ]);
 
         $this->load($params);
