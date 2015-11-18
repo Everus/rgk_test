@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'raw',
                 'value' => function(Books $data)
                 {
-                    return Html::img($data->getPreviewThumbURL());
+                    return Html::a(Html::img($data->getPreviewThumbURL()), $data->getPreviewURL(), ['rel' => 'fancybox']);
                 }
             ],
             'author.fullName',

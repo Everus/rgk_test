@@ -26,7 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'label' => 'preview',
                 'format' => 'raw',
-                'value' => Html::img($model->getPreviewThumbURL()),
+                'value' => Html::a(Html::img($model->getPreviewThumbURL()), $model->getPreviewURL(), ['rel' => 'fancybox']),
             ],
             'date',
             'author.fullname',
