@@ -68,12 +68,14 @@ class BooksSearch extends Books
      */
     public function attributeLabels()
     {
-        return [
+        $parent_labels = parent::attributeLabels();
+        $my_labels = [
             'name' => 'Название',
             'dateFrom' => 'Дата выхода книги:',
             'dateTo' => 'До:',
             'fullName' => 'Автор',
         ];
+        return array_merge($parent_labels, $my_labels);
     }
 
 
@@ -129,7 +131,8 @@ class BooksSearch extends Books
             'id' => $this->id,
             'author_id' => $this->author_id,
         ]);
-        $query->andFilterWhere(['between', 'date', $this->dateFrom, $this->dateTo]);
+        $query->andFilterWhere(['>=', 'date', $this->dateFrom]);
+        $query->andFilterWhere(['<=', 'date', $this->dateTo]);
 
         $query->andFilterWhere(['like', 'name', $this->name])
             ;

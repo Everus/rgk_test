@@ -45,6 +45,7 @@ class Authors extends ActiveRecord
             'id' => 'ID',
             'firstname' => 'Firstname',
             'lastname' => 'Lastname',
+            'fullname' => 'Автор',
         ];
     }
 

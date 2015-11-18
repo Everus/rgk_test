@@ -9,18 +9,17 @@ use app\models\Books;
 /* @var $searchModel app\models\BooksSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Books';
+$this->title = 'Книги';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="books-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
-    <?php echo $this->render('_search', ['model' => $searchModel]); ?>
-
-
     <p>
-        <?= Html::a('Create Books', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Добавить книгу', ['create'], ['class' => 'btn btn-success btn-sm']) ?>
     </p>
+
+    <?php echo $this->render('_search', ['model' => $searchModel]); ?>
     <?= GridView::widget([
         'dataProvider' => $searchModel->search(Yii::$app->getRequest()->getQueryParams()),
         //'filterModel' => $searchModel,
@@ -30,7 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'name:ntext',
             [
-                'label' => 'preview',
+                'label' =>  $searchModel->getAttributeLabel( 'preview' ),
                 'format' => 'raw',
                 'value' => function(Books $data)
                 {
@@ -42,7 +41,21 @@ $this->params['breadcrumbs'][] = $this->title;
             'date_create',
             //'date_update',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => \yii\grid\ActionColumn::className(),
+                'template'=>'{view} {update} {delete}',
+                'buttons' => [
+                    'update' => function ($url, $model, $key) {
+                        $options = [
+                            'title' => Yii::t('yii', 'Update'),
+                            'aria-label' => Yii::t('yii', 'Update'),
+                            'data-pjax' => '0',
+                            'target' => '_blank',
+                        ];
+                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, $options);
+                    },
+                ]
+            ],
         ],
     ]); ?>
 

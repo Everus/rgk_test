@@ -5,10 +5,6 @@ use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Books */
-
-$this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Books', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <div class="modal-header">
@@ -24,7 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'date_create',
             'date_update',
             [
-                'label' => 'preview',
+                'label' => $model->getAttributeLabel( 'preview' ),
                 'format' => 'raw',
                 'value' => Html::a(Html::img($model->getPreviewThumbURL()), $model->getPreviewURL(), ['rel' => 'fancybox']),
             ],

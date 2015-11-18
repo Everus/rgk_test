@@ -74,13 +74,14 @@ class Books extends ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
-            'date_create' => 'Date Create',
-            'date_update' => 'Date Update',
-            'preview' => 'Preview',
-            'date' => 'Date',
-            'author_id' => 'Author ID',
-            'author.fullName' => 'Author',
+            'name' => 'Название',
+            'date_create' => 'Дата добавления',
+            'date_update' => 'Дата последнего изменения',
+            'preview' => 'Превью',
+            'date' => 'Дата выхода книги',
+            'author_id' => 'Автор',
+            'author.fullName' => 'Автор',
+            'imageFile' => 'Превью',
         ];
     }
 

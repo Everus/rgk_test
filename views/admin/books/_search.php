@@ -15,23 +15,42 @@ use app\models\Authors;
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
         'method' => 'get',
+        'options' => [
+            'class' => 'form-inline'
+        ]
     ]); ?>
 
-    <?= $form->field($model, 'name') ?>
+    <div class="row">
+        <div class="col-md-4">
+            <?= $form->field($model, 'author_id')->DropDownList(ArrayHelper::map(Authors::find()->all(), 'id', 'fullName'), [
+                'prompt' => $model->getAttributeLabel( 'author_id' ),
+                'class' => 'form-control input-sm',
+            ])->label(false) ?>
+            <?= $form->field($model, 'name')->textInput([
+                'placeholder' => $model->getAttributeLabel( 'name' ),
+                'class' => 'form-control input-sm',
+            ])->label(false) ?>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-11">
+            <?= $form->field($model, 'dateFrom')->widget(\yii\jui\DatePicker::className(),[
+                'dateFormat' => 'yyyy-MM-dd',
+                'class' => 'form-control',
+                'options' => ['class' => 'form-control input-sm']
+            ]) ?>
+            <?= $form->field($model, 'dateTo')->widget(\yii\jui\DatePicker::className(),[
+                'dateFormat' => 'yyyy-MM-dd',
+                'options' => ['class' => 'form-control input-sm']
+            ]) ?>
+        </div>
+        <div class="form-group col-md-1">
+            <?= Html::submitButton('Искать', ['class' => 'btn btn-primary btn-sm']) ?>
+        </div>
+    </div>
 
-    <?= $form->field($model, 'dateFrom')->widget(\yii\jui\DatePicker::className(),['dateFormat' => 'yyyy-MM-dd']) ?>
-
-    <?= $form->field($model, 'dateTo')->widget(\yii\jui\DatePicker::className(),['dateFormat' => 'yyyy-MM-dd']) ?>
-
-    <?= $form->field($model, 'author_id')->DropDownList(ArrayHelper::map(Authors::find()->all(), 'id', 'fullName'), ['prompt' => '']) ?>
 
     <?php // echo $form->field($model, 'date') ?>
-
-
-    <div class="form-group">
-        <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton('Reset', ['class' => 'btn btn-default']) ?>
-    </div>
 
     <?php ActiveForm::end(); ?>
 
