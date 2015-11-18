@@ -24,6 +24,7 @@ class Books extends ActiveRecord
 {
     const UPLOAD_DIR = 'uploads/news/';
     const DEFAULT_PREVIEW = '@web/images/notavailable.png';
+    const DEFAULT_PREVIEW_THUMB = '@web/images/notavailablethumb.png';
     /**
      * @var UploadedFile
      */
@@ -97,7 +98,7 @@ class Books extends ActiveRecord
         if(file_exists(self::UPLOAD_DIR.$this->preview)) {
             return '@web/'.self::UPLOAD_DIR.'thumb/'.$this->preview;
         } else {
-            return self::DEFAULT_PREVIEW;
+            return self::DEFAULT_PREVIEW_THUMB;
         }
     }
 
