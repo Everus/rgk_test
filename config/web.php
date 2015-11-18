@@ -7,6 +7,7 @@ $config = [
     'id' => 'basic',
     'language' => 'ru-RU',
     'basePath' => dirname(__DIR__),
+    'defaultRoute' => 'admin/books/index',
     'bootstrap' => ['log'],
     'components' => [
         'request' => [
