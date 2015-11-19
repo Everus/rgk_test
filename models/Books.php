@@ -87,7 +87,7 @@ class Books extends ActiveRecord
 
     public function getPreviewURL()
     {
-        if(file_exists(self::UPLOAD_DIR.$this->preview)) {
+        if(file_exists(self::UPLOAD_DIR.$this->preview) && is_file(self::UPLOAD_DIR.$this->preview)) {
             return '@web/'.self::UPLOAD_DIR.$this->preview;
         } else {
             return self::DEFAULT_PREVIEW;
@@ -96,7 +96,7 @@ class Books extends ActiveRecord
 
     public function getPreviewThumbURL()
     {
-        if(file_exists(self::UPLOAD_DIR.$this->preview)) {
+        if(file_exists(self::UPLOAD_DIR.$this->preview) && is_file(self::UPLOAD_DIR.$this->preview)) {
             return '@web/'.self::UPLOAD_DIR.'thumb/'.$this->preview;
         } else {
             return self::DEFAULT_PREVIEW_THUMB;
